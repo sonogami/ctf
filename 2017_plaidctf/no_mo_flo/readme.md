@@ -36,5 +36,5 @@ EAX값이 1이 되는 것을 통해 정확히 구했는지 확인할 수 있다.
 
 ![](./image/4.png)
 
-flag is PCTF{n0_f10?m0_like_ah_h3ll_n0}
+flag is PCTF{n0_fl0?m0_like_ah_h3ll_n0}
 

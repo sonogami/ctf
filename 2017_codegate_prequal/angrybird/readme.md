@@ -18,9 +18,32 @@ Edit - Patch Program 기능을 통해 없애버리자.
 
 
 
-필자는 CMP EAX,0을 CMP EAX,1로 바꾸고 CALL문을 nop처리 했다. 
+필자는 CMP EAX,0을 CMP EAX,1로 바꾸고 0x400781~4007BD을 nop처리 했다. 
+
+단, fgets의 인자를 살려두기 위해 mov eax, 10h 명령을 추가하였다.
 
 ![](./image/3.png)
 
-그렇게 쓸데없는 코드를 처리하면 제대로 된 코드를 볼 수 있다.
+그렇게 쓸데없는 코드를 처리하면 제대로 된 코드를 볼 수 있다. 
 
+이후는 angr한테 맡겨두자.
+
+###Solution Code
+
+```python
+import angr
+ 
+def main():
+    p = angr.Project("./angrybird_re", load_options={'auto_load_libs': False})
+    ex = p.surveyors.Explorer(find=(0x404f7c, ), avoid=(0x404fab,), enable_veritesting=True)
+    ex.run()
+ 
+    return ex.found[0].state.posix.dumps(0).strip('\0\n')
+ 
+if __name__ == '__main__':
+    print main()
+```
+
+![](./image/4.png)
+
+flag is Im_so_cute&pretty_:)
